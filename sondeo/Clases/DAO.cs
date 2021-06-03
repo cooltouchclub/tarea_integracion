@@ -31,7 +31,7 @@ namespace sondeo.Clases {
                     return ges;
                 } else {
                     con.Close();
-                    return null;
+                    return string.Empty;
                 }
             } catch (SqlException e) {
                 return e.ToString();

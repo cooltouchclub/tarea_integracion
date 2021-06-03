@@ -81,17 +81,16 @@
                     {
                         u = new Usuario(nom, pas, ges);
                         ges = d.BuscarUsuario(u);
-                        if (nom != null)
+                        if (ges.Length!= 0) 
                         {
                             Session["nom_ges"] = ges;
                             Response.Redirect("principal.aspx");
+                        } else {
+                        Response.Write("<script>alert('El Rut y la contraseña no existe!');</script>");
                         }
                     }
                 }
-                else
-                {
-                    Response.Write("<script>alert('El Rut y la contraseña no son validos!');</script>");
-                }
+                
             }
 
     %>
