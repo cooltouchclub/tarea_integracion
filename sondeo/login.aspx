@@ -50,33 +50,50 @@
 
     </form>
 
-<%@import Namespace="sondeo.Clases" %>
+    <%@ Import Namespace="sondeo.Clases" %>
     <%
-        Usuario u;
-        DAO d = new DAO();
-        string nom = "", pas = "", ges = "", error = "";
-        bool estado = false;
+            Usuario u;
+            DAO d = new DAO();
+            string nom = "", pas = "", ges = "", error = "";
+            bool estado = false;
 
-        if (!string.IsNullOrEmpty(Request.Form["btn_env"])) {
-            nom = Request.Form["txt_usu"].Trim();
-            pas = Request.Form["txt_pas"].Trim();
+            // Aqui solicitas el valor del boton y lo guardas en una variable.
+            string valorBoton = Request.Form["btn_env"];
 
-            if(nom.Length == 0 || pas.Length == 0) {
-                error = "Falto completar la casillas del rut y/o de la contraseña";
-            
-                Response.Write("<script>alert('"+error+"');</script>");
-                
-            } else {
-                u = new Usuario(nom, pas, ges);
-                ges = d.BuscarUsuario(u);
+            //Luego preguntas dos cosas: Primero, que el valor no sea nulo o vacio, y la otra, que el boton sea Ingresar, y no otro. 
+
+
+            if (!string.IsNullOrEmpty(valorBoton))
+            {
+
+                if (valorBoton.Equals("Ingresar"))
+                {
+                    nom = Request.Form["txt_usu"].Trim();
+                    pas = Request.Form["txt_pas"].Trim();
+
+                    if (nom.Length == 0 || pas.Length == 0)
+                    {
+                        error = "Falto completar la casillas del rut y/o de la contraseña";
+
+                        Response.Write("<script>alert('" + error + "');</script>");
+                    }
+                    else
+                    {
+                        u = new Usuario(nom, pas, ges);
+                        ges = d.BuscarUsuario(u);
+                        if (nom != null)
+                        {
+                            Session["nom_ges"] = ges;
+                            Response.Redirect("principal.aspx");
+                        }
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('El Rut y la contraseña no son validos!');</script>");
+                }
             }
-            if (nom != null) {
-                Session["nom_ges"] = ges;
-                Response.Redirect("principal.aspx");
-            } else {
-                Response.Write("<script>alert('El Rut y la contraseña no son validos!');</script>");
-                            }
-        }
+
     %>
 
    
