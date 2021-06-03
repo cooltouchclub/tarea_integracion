@@ -72,7 +72,6 @@
     <Content Include="css\estilos.css" />
     <Content Include="css\materialize.min.css" />
     <Content Include="css\style.css" />
-    <Content Include="Default.aspx" />
     <Content Include="elisonda.aspx" />
     <Content Include="findsond.aspx" />
     <Content Include="ingbita.aspx" />
@@ -97,13 +96,6 @@
     </Compile>
     <Compile Include="creauser.aspx.designer.cs">
       <DependentUpon>creauser.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="elisonda.aspx.cs">
       <DependentUpon>elisonda.aspx</DependentUpon>
