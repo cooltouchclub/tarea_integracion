@@ -48,7 +48,7 @@ width: 25%;
 </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" method="post" action="creauser.aspx">
         <br>
         <br>
         <br>
@@ -87,28 +87,58 @@ width: 25%;
                      	
 
 						<div class="input_field">
+							<label>Nombre del  Gestor</label>
+							<input type="text" class="input" name="txt_ges">
+						</div>
+
+                        <div class="input_field">
 							<label>Nombre de Usuario</label>
-							<input type="text" class="input">
+							<input type="text" class="input" name="txt_usu">
 						</div>
 
 						<div class="input_field">
 							<label>Contraseña</label>
-							<input type="text" class="input">
+							<input type="text" class="input" name="txt_pas">
 						</div>
 
 						<div class="input_field">
 							<label>Reingresar Contraseña</label>
-							<input type="text" class="input">
+							<input type="text" class="input" name="txt_pas">
 						</div>
 
                 
 
                     <div class="input_field">
-			        <input type="submit" value="Ingresar" class="btn_ing">
+			        <input type="submit" value="Registrar" class="btn_ing" name="btn_reg">
 			        </div>
                 </div>
 
         </div>
     </form>
+    <%@import Namespace="sondeo.Clases"%>
+    <%
+        Usuario u;
+        List<Usuario> lista = new List<Usuario>();
+        DAO D = new DAO();
+        string nom = "", pas = "", ges = "", error = "";
+
+        if (!string.IsNullOrEmpty(Request.Form["btn_reg"])) {
+            ges = Request.Form["txt_ges"].Trim();
+            nom = Request.Form["txt_usu"].Trim();
+            pas = Request.Form["txt_pas"].Trim();
+
+            if(ges.Length==0 || nom.Length==0 || pas.Length==0) {
+                error = "Faltó completar los campos";
+                Response.Write("<script>alert('" + error + "');</<script>");
+            } else {
+                u = new Usuario(ges, nom, pas);
+                string mensaje = D.agregarUsuario(u);
+                Response.Write("<script>alert('"+mensaje+"')</script>    ");
+            }
+        }
+
+
+        %>
+
 </body>
 </html>

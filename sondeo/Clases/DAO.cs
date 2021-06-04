@@ -38,6 +38,28 @@ namespace sondeo.Clases {
             }
         }
 
+        public string agregarUsuario(Usuario U) {
+            try {
+                con.Open();
+                cmd = new SqlCommand("select *from usuarios where nom_usu = '" + U.Nombre + "'", con);
+                dr = cmd.ExecuteReader();
+                if (dr.Read()) {
+                    con.Close();
+                    return "El usuario ya se encuentra registrado";
+                } else {
+                    con.Close();
+                    con.Open();
+                    cmd =new SqlCommand("insert into usuario values('"+U.Ges+"','"+U.Nombre+"','"+U.Pass+"')",con);
+                    cmd.ExecuteReader();
+                    con.Close();
+                    return "Usuario Registrado Correctamente";
+
+                }
+            } catch(SqlException e) {
+                return e.ToString();
+            }
+        }
+
     }
 
 
